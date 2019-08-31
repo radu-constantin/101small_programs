@@ -2,15 +2,15 @@
 # ask the user for an operation to perform
 # perform the operation on the two numbers
 # output the result
-def prompt(message)
+def prompt(message) #method for general messages
   Kernel.puts("=>#{message}")
 end
 
-def valid_number?(num)
-  num.to_i != 0
+def valid_number?(input)
+  input.to_i.to_s == input
 end
 
-def operation_to_message(op)
+def operation_to_message(op) #method to add the string that describes what operation is happening after user input
   case op
   when '1'
     'Adding'
@@ -102,4 +102,4 @@ prompt("#{operation_to_message(operator)} the two numbers...")
   break unless answer.downcase.start_with?('y')
 end
 
-prompt("Thank you for using the calculator. Good bye!")
+prompt("Thank you for using the calculator. Goodbye!")
