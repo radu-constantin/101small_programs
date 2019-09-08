@@ -8,7 +8,7 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def win?(first, second)
+def win?(first, second) #should refactor (it's too long)
   (first == 'rock' && second == 'scissors') ||
   (first == 'paper' && second == 'rock') ||
   (first == 'scissors' && second == 'paper') ||
