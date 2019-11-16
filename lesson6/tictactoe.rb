@@ -64,8 +64,12 @@ end
 end
 
 def computer_places_piece!(brd)
-  if detect_danger(brd)
-    square = danger_square(brd)
+  if can_win?(brd)
+    square = offensive_ai(brd)
+  elsif detect_danger(brd)
+    square = defensive_ai(brd)
+  elsif brd[5] == ' '
+    square = 5
   else
     square = empty_squares(brd).sample
   end
@@ -104,7 +108,19 @@ def detect_danger(brd)
   danger
 end
 
-def danger_square(brd)
+def can_win?(brd)
+  can_win = false
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
+      can_win = true
+    else
+      nil
+    end
+  end
+  can_win
+end
+
+def defensive_ai(brd)
   danger_line = nil
   danger_square = nil
   WINNING_LINES.each do |line|
@@ -112,6 +128,16 @@ def danger_square(brd)
   end
   danger_line.each {|index| danger_square = index if brd[index] == INITIAL_MARKER}
   danger_square
+end
+
+def offensive_ai(brd)
+  offensive_line = nil
+  offensive_square = nil
+  WINNING_LINES.each do |line|
+    offensive_line = line  if brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
+  end
+  offensive_line.each {|index| offensive_square = index if brd[index] == INITIAL_MARKER}
+  offensive_square
 end
 
 
